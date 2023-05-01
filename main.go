@@ -24,8 +24,16 @@ func main() {
 		img := gl.NewImage(300, 300)
 
 		wholeSelection := img.WholeImageSelection()
+		drawBackground(&wholeSelection, Gray2)
 
-		drawSentence(&wholeSelection, 290, 10, sentenceToCipher("WHATTHEFUCK/DIDYOUJUST/FUCKINGSAY"))
+		lowerHalf := wholeSelection.Selection(0, 90).WithSize(300, 300)
+		drawBackground(&lowerHalf, Black)
+
+		announcement := getDrawer(Announcement)
+		trailer := getDrawer(Trailer)
+
+		announcement.drawSentence(&wholeSelection, 290, 10, sentenceToCipher("JULKAISUMYOS/ITCHIOSSA/SAIMAA"))
+		trailer.drawSentence(&wholeSelection, 290, 100, sentenceToCipher("WHATTHEFUCK/DIDYOUJUST/FUCKINGSAY"))
 
 		newImage := goimage.FromSelection(wholeSelection, goimage.Zoom(5))
 		existingIMage := image.NewRGBA(image.Rect(0, 0, wholeSelection.Width(), wholeSelection.Height()))
