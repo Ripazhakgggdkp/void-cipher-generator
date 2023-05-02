@@ -1,19 +1,12 @@
 package main
 
-import "github.com/elgopher/pixiq/image"
+import (
+	"github.com/elgopher/pixiq/image"
+)
 
 type AnnouncementDrawer struct {
+	Drawer
 	Theme
-}
-
-func (d *AnnouncementDrawer) drawLetter(image *image.Selection, x int, y int, grid [3][3]State) {
-	selection := image.Selection(x, y)
-	kind := map[State]Pattern{On: d.BoxOnPattern, Off: d.BoxOffPattern, Blank: d.BoxBlankPattern}
-	for i, row := range grid {
-		for j, column := range row {
-			drawBox(&selection, j*5, i*5, kind[column])
-		}
-	}
 }
 
 func (d *AnnouncementDrawer) drawSentence(image *image.Selection, x int, y int, cipher [][3][3]State) {
@@ -29,5 +22,12 @@ func (d *AnnouncementDrawer) drawSentence(image *image.Selection, x int, y int, 
 
 		d.drawLetter(&selection, -caret*16-14, 16*line, letter)
 		caret++
+	}
+}
+
+func newAnnouncementDrawer() Drawer {
+	return &AnnouncementDrawer{
+		Theme:  AnnouncementTheme,
+		Drawer: newDefaultDrawer(AnnouncementTheme),
 	}
 }

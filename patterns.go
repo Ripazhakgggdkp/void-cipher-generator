@@ -12,6 +12,12 @@ var (
 
 type Pattern [][]image.Color
 
+type Theme struct {
+	BoxOnPattern    Pattern
+	BoxOffPattern   Pattern
+	BoxBlankPattern Pattern
+}
+
 var TrailerBoxOn = [][]image.Color{
 	{White, White, White, Gray},
 	{White, Gray, Gray, Gray2},
@@ -39,3 +45,6 @@ var AnnouncementBoxOn = [][]image.Color{
 	{Black, Black, Black, Black},
 	{Empty, Black, Black, Empty},
 }
+
+var TrailerTheme = Theme{BoxOnPattern: TrailerBoxOn, BoxOffPattern: TrailerBoxOff, BoxBlankPattern: BoxEmpty}
+var AnnouncementTheme = Theme{BoxOnPattern: AnnouncementBoxOn, BoxOffPattern: BoxEmpty, BoxBlankPattern: BoxEmpty}

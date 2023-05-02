@@ -2,11 +2,11 @@ package main
 
 import "github.com/elgopher/pixiq/image"
 
-type TrailerDrawer struct {
+type DefaultDrawer struct {
 	Theme
 }
 
-func (d *TrailerDrawer) drawLetter(image *image.Selection, x int, y int, grid [3][3]State) {
+func (d *DefaultDrawer) drawLetter(image *image.Selection, x int, y int, grid [3][3]State) {
 	selection := image.Selection(x, y)
 	kind := map[State]Pattern{On: d.BoxOnPattern, Off: d.BoxOffPattern, Blank: d.BoxBlankPattern}
 	for i, row := range grid {
@@ -16,7 +16,7 @@ func (d *TrailerDrawer) drawLetter(image *image.Selection, x int, y int, grid [3
 	}
 }
 
-func (d *TrailerDrawer) drawSentence(image *image.Selection, x int, y int, cipher [][3][3]State) {
+func (d *DefaultDrawer) drawSentence(image *image.Selection, x int, y int, cipher [][3][3]State) {
 	line := 0
 	caret := 0
 	selection := image.Selection(x, y)
@@ -27,7 +27,15 @@ func (d *TrailerDrawer) drawSentence(image *image.Selection, x int, y int, ciphe
 			continue
 		}
 
-		d.drawLetter(&selection, -caret*16-14, 16*line, letter)
+		d.drawLetter(&selection, 16*line, caret*16-14, letter)
 		caret++
 	}
+}
+
+func newDefaultDrawer(theme Theme) Drawer {
+	return &DefaultDrawer{Theme: theme}
+}
+
+func newTrailerDrawer() Drawer {
+	return newDefaultDrawer(TrailerTheme)
 }

@@ -33,7 +33,7 @@ func main() {
 		trailer := getDrawer(Trailer)
 
 		announcement.drawSentence(&wholeSelection, 290, 10, sentenceToCipher("JULKAISUMYOS/ITCHIOSSA/SAIMAA"))
-		trailer.drawSentence(&wholeSelection, 290, 100, sentenceToCipher("WHATTHEFUCK/DIDYOUJUST/FUCKINGSAY"))
+		trailer.drawSentence(&wholeSelection, 200, 120, sentenceToCipher("WHATTHEFUCK/DIDYOUJUST/FUCKINGSAY"))
 
 		newImage := goimage.FromSelection(wholeSelection, goimage.Zoom(5))
 		existingIMage := image.NewRGBA(image.Rect(0, 0, wholeSelection.Width(), wholeSelection.Height()))

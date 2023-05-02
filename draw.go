@@ -11,12 +11,6 @@ const (
 	Announcement Style = iota
 )
 
-type Theme struct {
-	BoxOnPattern    Pattern
-	BoxOffPattern   Pattern
-	BoxBlankPattern Pattern
-}
-
 type Drawer interface {
 	drawLetter(*image.Selection, int, int, [3][3]State)
 	drawSentence(*image.Selection, int, int, [][3][3]State)
@@ -43,8 +37,8 @@ func drawBackground(image *image.Selection, color image.Color) {
 
 func getDrawer(theme Style) Drawer {
 	if theme == Trailer {
-		return &TrailerDrawer{Theme{BoxOnPattern: TrailerBoxOn, BoxOffPattern: TrailerBoxOff, BoxBlankPattern: BoxEmpty}}
+		return newTrailerDrawer()
 	} else {
-		return &AnnouncementDrawer{Theme{BoxOnPattern: AnnouncementBoxOn, BoxOffPattern: BoxEmpty, BoxBlankPattern: BoxEmpty}}
+		return newAnnouncementDrawer()
 	}
 }
